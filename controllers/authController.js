@@ -18,13 +18,13 @@ exports.register = async (req, res) => {
     db.query(sql, [username, hashedPassword, rol || 'user'], (err, result) => {
       if (err) {
         console.error('Error en la consulta SQL:', err);
-        return res.status(500).json({ error: 'Error en el registro' });
+        return res.redirect('/api/auth/register?error=error_registro');
       }
       res.redirect('/api/auth/login');
     });
   } catch (error) {
     console.error('Error al hashear la contraseña o en el registro:', error);
-    res.status(500).json({ error: 'Error en el registro' });
+    res.redirect('/api/auth/register?error=error_servidor');
   }
 };
 
@@ -40,12 +40,12 @@ exports.login = async (req, res) => {
     const sql = 'SELECT * FROM users WHERE username = ?';
     db.query(sql, [username], async (err, results) => {
       if (err || results.length === 0) {
-        return res.status(400).json({ error: 'Credenciales incorrectas' });
+        return res.redirect('/api/auth/login?error=credenciales_incorrectas');
       }
       const user = results[0];
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(400).json({ error: 'Credenciales incorrectas' });
+        return res.redirect('/api/auth/login?error=credenciales_incorrectas');
       }
 
       // Generar token JWT
@@ -57,9 +57,10 @@ exports.login = async (req, res) => {
     });
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
-    res.status(500).json({ error: 'Error al iniciar sesión' });
+    res.redirect('/api/auth/login?error=error_servidor');
   }
 };
+
 
 // Controlador para mostrar el dashboard (protegido)
 exports.getDashboardPage = (req, res) => {
