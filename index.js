@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
   res.redirect('/api/auth/login');
 });
 
+// Middleware para manejar rutas no encontradas
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+  });
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
