@@ -1,0 +1,51 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directorios de pruebas locales
+*.local
+
+# Sistema operativo
+.DS_Store
+
+# Dependencias de módulos
+/node_modules
+
+# Archivos de configuración de entorno
+.env
+
+# Directorios de build
+build/
+dist/
+
+# Coverage de pruebas
+coverage/
+
+# Caches y archivos temporales
+*.tmp
+*.swp
+*.swo
+
+# IDEs y editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+
+# .env
+# DB_HOST=localhost
+# DB_USER=root
+# DB_PASSWORD=''
+# DB_NAME=proyecto1
+# JWT_SECRET=thethingsyouwannahear
